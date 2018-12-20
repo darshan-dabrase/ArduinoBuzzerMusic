@@ -1,0 +1,84 @@
+
+
+/* “IPL” / “INDIAN PREMIERE LEAGUE” Theme Song Playing
+website-” arduinator.ga ”
+*
+* INSTRUCTION: Hook up Pin 10 to the positive side of a buzzer or a microphone, hook up
+* any resistor to the negative side of a buzzer (to limit current & volume & to protect the pin),
+* and then connect the other end of the resistor to ground pin. Upload the sketch and enjoy!
+*
+
+
+* Music notes’ frequencies obtained from arduino website
+* Link: https://www.arduino.cc/en/Tutorial/toneMelody
+*/
+
+const int buzzer = 10; //Define pin 10, can use other PWM pins (5,6 or 9)
+//Note pins 3 and 11 can’t be used when using the tone function in Arduino Uno
+const int songspeed =1.5; //Change to 2 for a slower version of the song, the bigger the number the slower the song
+//*****************************************
+#define NOTE_C4 162 //Defining note frequency
+#define NOTE_D4 294
+#define NOTE_D45 312
+#define NOTE_E4 330
+#define NOTE_F4 349
+#define NOTE_G4 392
+#define NOTE_G45 416
+#define NOTE_A4 440
+#define NOTE_A45 467
+#define NOTE_B4 494
+#define NOTE_C5 523
+#define NOTE_D5 587
+#define NOTE_E5 659
+#define NOTE_F5 698
+#define NOTE_G5 784
+#define NOTE_A5 880
+#define NOTE_B5 988
+//*****************************************
+int notes[] = { //Note of the song, 0 is a rest/pulse
+NOTE_G4, NOTE_G45, NOTE_A45, NOTE_G45, 0,
+NOTE_G4, NOTE_F4, NOTE_G4, NOTE_G45, NOTE_G4, 0,
+//REPEAT
+NOTE_G4, NOTE_G45, NOTE_A45, NOTE_G45, 0,
+NOTE_G4, NOTE_F4, NOTE_G4, NOTE_G45, NOTE_G4, 0,
+
+NOTE_G4,0, NOTE_G4,0, NOTE_G4,0, NOTE_G45,NOTE_A45, 0,
+NOTE_G4,0, NOTE_G4,0, NOTE_G4,0, NOTE_G45,NOTE_F4, 0,
+//REPEAT
+NOTE_G4,0, NOTE_G4,0, NOTE_G4,0, NOTE_G45,NOTE_A45, 0,
+NOTE_G4,0, NOTE_G4,0, NOTE_G4,0, NOTE_G45,NOTE_F4, 0,
+
+NOTE_G4, NOTE_G45, NOTE_A45, NOTE_G45, 0,
+NOTE_G4, NOTE_F4, NOTE_G4, NOTE_G45, NOTE_G4, 0,
+
+};
+//*****************************************
+int duration[] = { //duration of each note (in ms) Quarter Note is set to 250 ms
+210, 210, 210, 210, 00,
+210, 210, 210, 210, 210, 500,
+//REPEAT
+210, 210, 210, 210, 00,
+210, 210, 210, 210, 210, 500,
+
+400,100, 400,100, 400,100, 500, 500, 500,
+400,100, 400,100, 400,100, 500, 500, 700,
+//REPEAT
+400,100, 400,100, 400,100, 500, 500, 500,
+400,100, 400,100, 400,100, 500, 500, 700,
+
+210, 210, 210, 210, 00,
+210, 210, 210, 210, 210, 500,
+
+};
+
+void setup() {
+for (int i=0;i<68;i++){ //68 is the total number of music notes in the song
+int wait = duration[i] * songspeed;
+tone(buzzer,notes[i],wait); //tone(pin,frequency,duration)
+delay(wait);} //delay is used so it doesn’t go to the next loop before tone is finished playing
+//You can click reset on Arduino to replay the song
+}
+
+void loop() {
+
+}
